@@ -202,13 +202,14 @@ map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " git 
 nnoremap <leader>gc :GCheckout<CR>
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gph :Gpush<CR>
-nnoremap <leader>gf :Gfetch<CR>
-nnoremap <leader>gl :Glog<CR>
-nnoremap <leader>gcm :Gcommit<CR>
-nnoremap <leader>gp :Gpull<CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gm :Gmerge<CR>
+nnoremap <leader>gb :Git blame<CR>
+nnoremap <leader>gph :Git push<CR>
+nnoremap <leader>gf :Git fetch<CR>
+nnoremap <leader>gl :Git log<CR>
+nnoremap <leader>gcm :Git commit<CR>
+nnoremap <leader>gp :Git pull<CR>
+nnoremap <leader>gs :Git status<CR>
+nnoremap <leader>gm :Git merge<CR>
+nnoremap <leader>ga :Git add .<CR>
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gk :diffget //3<CR>
