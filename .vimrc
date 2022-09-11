@@ -21,6 +21,8 @@ set scrolloff=7
 set cursorline
 set splitright
 set backspace=indent,eol,start
+set path+=**
+set wildmenu
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 au BufNewFile,BufRead Jenkinsfile setf groovy
 
