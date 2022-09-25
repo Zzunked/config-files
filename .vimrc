@@ -87,6 +87,9 @@ Plug 'junegunn/fzf.vim'
 " Rg aka ripgrep
 Plug 'jremmen/vim-ripgrep'
 
+" AutoSave
+Plug '907th/vim-auto-save'
+
 " Undoo tree
 Plug 'mbbill/undotree'
 
@@ -150,6 +153,22 @@ nnoremap <Leader>* :Rg<SPACE>
 
 " undootree
 nnoremap <F6> :UndotreeToggle<cr>
+
+if has("persistent_undo")
+   let target_path = expand('~/.vim/undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
+
+" Autosave
+let g:auto_save = 1  " enable AutoSave on Vim startup
 
 " vim-tags
 let g:vim_tags_auto_generate = 1
