@@ -23,6 +23,7 @@ set splitright
 set backspace=indent,eol,start
 set path+=**
 set wildmenu
+set updatetime=60
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 au BufNewFile,BufRead Jenkinsfile setf groovy
 
@@ -148,8 +149,23 @@ hi Normal guibg=NONE ctermbg=NONE
 " vim-fugitive
 nnoremap <C-p> :GFiles<CR>
 
-" ripgrep
-nnoremap <Leader>* :Rg<SPACE>
+nnoremap <Leader>* :Rg <C-R><C-W><CR>
+nnoremap <Leader>& :RG <C-R><C-W><CR>
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " undootree
 nnoremap <F6> :UndotreeToggle<cr>
@@ -168,7 +184,8 @@ if has("persistent_undo")
 endif
 
 " Autosave
-let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save = 0  " enable AutoSave on Vim startup
+let g:auto_save_events = ["CursorHold"]
 
 " vim-tags
 let g:vim_tags_auto_generate = 1
@@ -234,3 +251,4 @@ nnoremap <leader>gm :Git merge<CR>
 nnoremap <leader>ga :Git add .<CR>
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gk :diffget //3<CR>
+
