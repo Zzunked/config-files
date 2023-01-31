@@ -16,7 +16,7 @@ set undofile
 set incsearch
 set hlsearch
 set ignorecase
-set colorcolumn=80
+set colorcolumn=120
 set scrolloff=7
 set cursorline
 set splitright
@@ -136,6 +136,8 @@ Plug 'tpope/vim-fugitive'
 " git checkout
 Plug 'stsewd/fzf-checkout.vim'
 
+Plug 'kamykn/spelunker.vim'
+
 call plug#end()
 
 "Plugins Settings"
@@ -212,13 +214,16 @@ let g:pymode_virtualenv = 1
 let g:pymode_run = 0
 let g:pymode_breakpoint = 0
 let g:pymode_lint = 1
- let g:pymode_lint_ignore = ["E501"]
+"let g:pymode_lint_ignore = ["E501"]
 let g:pymode_lint_on_write = 0
 let g:pymode_rope = 0
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_lint_checkers = ['pylint', 'pep8', 'mccabe', 'pep257', 'pyflakes', 'isort', 'black']
+let g:pymode_lint_options_pep8 =
+    \ {'max_line_length': 120}
 
 nnoremap <leader>pl :PymodeLint<CR>
 
@@ -252,3 +257,9 @@ nnoremap <leader>ga :Git add .<CR>
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gk :diffget //3<CR>
 
+" spelunker
+let g:enable_spelunker_vim = 1
+let g:spelunker_disable_account_name_checking = 0
+let g:spelunker_disable_backquoted_checking = 0
+highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#9e9e9e
+highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
